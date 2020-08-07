@@ -1,6 +1,6 @@
 # Introduction
 
-There are five obligatory assignments in IN3120 and IN4120. In addition, there will be an obligatory "science fair" for the IN4120 students. Information about the science fair will appear later.
+There are five obligatory assignments in IN3120 and IN4120. In addition, there will be an obligatory [science fair](science-fair.md) for the IN4120 students.
 
 When turning in your solutions, please note:
 
