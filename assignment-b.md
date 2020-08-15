@@ -1,6 +1,6 @@
 # Assignment B
 
-**Deadline:** TBA.
+**Deadline:** 25.September 2020
 
 The purpose of this assignment is twofold:
 
