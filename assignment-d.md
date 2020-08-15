@@ -7,7 +7,7 @@ The purpose of this assignment is twofold:
 * Implement a better ranker than the `BrainDeadRanker` class. For example, inverse document frequency (i.e., considering how frequent the query terms are across the corpus) and static rank (i.e., a query-independent quality score per document) are two factors that you should include.
 * Realize a simple search engine that is capable of approximate matching, e.g., where the query _organik kemmistry_ matches documents containing the terms _organic chemistry_. We will do this by using a tokenizer that produces _k_-grams (i.e., overlapping "shingles" of width _k_) and combine this with _n_-of-_m_ matching. For example, for _k_ = 3, the string _banana_ would be tokenized into the shingles {_ban_, _ana_, _nan_, _ana_}.
 
-Your solution should only contain edits to the files `tokenization.py` and `ranking.py`. Changes to other files will be ignored.
+Your solution should only contain edits to the files `shinglegenerator.py` and `betterranker.py`. Changes to other files will be ignored.
 
 Implementation notes:
 
