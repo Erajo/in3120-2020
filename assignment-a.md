@@ -4,7 +4,7 @@
 
 The purpose of this assignment is to build a simple in-memory inverted index and show how to merge posting lists.
 
-Your solution should only contain edits to the files `invertedindex.py` and `traversal.py`. Changes to other files will be ignored.
+Your solution should only contain edits to the files `invertedindex.py` and `postingsmerger.py`. Changes to other files will be ignored.
 
 Implementation notes:
 
