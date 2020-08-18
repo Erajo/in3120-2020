@@ -1,6 +1,6 @@
 # Assignment D
 
-**Deadline:** 23.October 2020
+**Deadline:** 2020-10-23
 
 The purpose of this assignment is twofold:
 
