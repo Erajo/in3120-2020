@@ -57,7 +57,7 @@ Simple [REPLs](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loo
 
 # Assignments
 
-Individual assignments are linked to below. Solutions are made progressively available as the course unfolds. Deadlines to be announced.
+Individual assignments are linked to below. Solutions are made progressively available as the course unfolds.
 
 * [Assignment A](assignment-a.md).
 * [Assignment B](assignment-b.md).
