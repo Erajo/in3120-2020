@@ -56,8 +56,25 @@ class TestBrainDeadTokenizer(unittest.TestCase):
 
 
 class TestShingleGenerator(unittest.TestCase):
+    def __process_query_verify_matches(self, query, engine, options, expected):
+        from itertools import takewhile
+        ranker = in3120.BrainDeadRanker()
+        hits, score, winners = expected
+        matches = list(engine.evaluate(query, options, ranker))
+        matches = [(m["score"], m["document"].document_id) for m in matches]
+        self.assertEqual(len(matches), hits)
+        if matches:
+            for i in range(1, hits):
+                self.assertGreaterEqual(matches[i - 1][0], matches[i][0])
+            if score:
+                self.assertEqual(matches[0][0], score)
+            if winners:
+                top = takewhile(lambda m: m[0] == matches[0][0], matches)
+                self.assertListEqual(winners, list(sorted([m[1] for m in top])))
+
     def setUp(self):
         self.__tokenizer = in3120.ShingleGenerator(3)
+        self.__normalizer = in3120.BrainDeadNormalizer()
 
     def test_strings(self):
         self.assertListEqual(list(self.__tokenizer.strings("")), [])
@@ -85,6 +102,17 @@ class TestShingleGenerator(unittest.TestCase):
             self.assertIsInstance(self.__tokenizer.tokens(buffer), types.GeneratorType)
             self.assertIsInstance(self.__tokenizer.strings(buffer), types.GeneratorType)
 
+    def test_index_shingled_mesh_corpus(self):
+        tokenizer = in3120.ShingleGenerator(3)
+        corpus = in3120.InMemoryCorpus("../data/mesh.txt")
+        index = in3120.InMemoryInvertedIndex(corpus, ["body"], self.__normalizer, tokenizer)
+        engine = in3120.SimpleSearchEngine(corpus, index)
+        self.__process_query_verify_matches("orGAnik kEMmistry", engine,
+                                            {"match_threshold": 0.1, "hit_count": 10},
+                                            (10, 8.0, [4408, 4410, 4411, 16980, 16981]))
+        self.__process_query_verify_matches("synndrome", engine,
+                                            {"match_threshold": 0.1, "hit_count": 10},
+                                            (10, 7.0, [1275]))
 
 class TestSieve(unittest.TestCase):
     def test_sifting(self):
@@ -514,18 +542,6 @@ class TestSimpleSearchEngine(unittest.TestCase):
                      ('water', 25281)]
         history = index.get_history()
         self.assertTrue(history == ordering1 or history == ordering2)  # Strict. Advanced implementations might fail.
-
-    def test_shingled_mesh_corpus(self):
-        tokenizer = in3120.ShingleGenerator(3)
-        corpus = in3120.InMemoryCorpus("../data/mesh.txt")
-        index = in3120.InMemoryInvertedIndex(corpus, ["body"], self.__normalizer, tokenizer)
-        engine = in3120.SimpleSearchEngine(corpus, index)
-        self.__process_query_verify_matches("orGAnik kEMmistry", engine,
-                                            {"match_threshold": 0.1, "hit_count": 10},
-                                            (10, 8.0, [4408, 4410, 4411, 16980, 16981]))
-        self.__process_query_verify_matches("synndrome", engine,
-                                            {"match_threshold": 0.1, "hit_count": 10},
-                                            (10, 7.0, [1275]))
 
     def test_uses_yield(self):
         import types
