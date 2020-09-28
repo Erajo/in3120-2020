@@ -14,7 +14,7 @@ The evaluator should use the client-supplied ratio _t = n/m_ as a parameter as s
 
 The results should be ranked and emitted back to the client according to relevancy. For example, continuing the previous example, it is reasonable to expect that a document that contains all of _orange_, _apple_ and _banana_ to be ranked above a document that contains _orange_ and _apple_ but not _banana_. How many documents to be returned should be controlled on a per query basis as specified by the client.
 
-Your solution should only contain edits to the file `searchengine.py`. Changes to other files will be ignored.
+Your solution should only contain edits to the file `simplesearchengine.py`. Changes to other files will be ignored.
 
 Implementation notes:
 
